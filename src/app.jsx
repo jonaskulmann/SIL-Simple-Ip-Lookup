@@ -1,8 +1,12 @@
 function App() {
+    function makeRequest(){
+        alert('Testando função');
+    }
   return (
     <div>
-      <h1>teste estrutura</h1>
-      <p>mds tomara q funcione</p>
+      <h1>SPS - Simple Port Scanner</h1>
+      <p>Digite um endereço de ip e selecione as portas para scannear</p>
+      <button onClick={makeRequest}>Scannear Portas</button>
     </div>
   );
 }
