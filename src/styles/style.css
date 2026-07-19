@@ -5,3 +5,43 @@ body {
   color: White;
   background-color: #3A495C;
 }
+
+.resultado {
+  margin-top: 24px;
+  display: inline-block;
+  text-align: left;
+  background: #f4f4f8;
+  color: black;
+  padding: 16px 24px;
+  border-radius: 8px;
+}
+ 
+.resultado p {
+  margin: 6px 0;
+}
+ 
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+ 
+input {
+  padding: 8px;
+  width: 220px;
+  margin-right: 8px;
+}
+ 
+button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+ 
+.erro {
+  color: red;
+}
+ 
+.resultado {
+  margin-top: 20px;
+  text-align: left;
+  display: inline-block;
+}
