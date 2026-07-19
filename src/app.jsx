@@ -1,8 +1,9 @@
 function App() {
     const [ip, setIp] = React.useState("");
     async function makeRequest(){
-        const resposta = await fetch(`https://internetdb.shodan.io/${ip}`);
-        alert(resposta.json());
+        const resposta = await fetch(`http://ip-api.com/json/${ip}`);
+        const dados = await resposta.json();
+        alert(JSON.stringify(dados, null, 2));
     }
   return (
     <div>
