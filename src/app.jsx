@@ -1,3 +1,7 @@
+const EMAILJS_SERVICE_ID = 'coloque a id so servico';
+const EMAILJS_TEMPLATE_ID = 'coloque a id do template';
+const EMAILJS_PUBLIC_KEY = 'coloque a sua keu publica';
+
 function App() {
   const [ip, setIp] = React.useState("");
   const [dados, setDados] = React.useState(null);
@@ -7,6 +11,9 @@ function App() {
   const [form, setForm] = React.useState({ nome: "", email: "", mensagem: "" });
   const [formEnviado, setFormEnviado] = React.useState(false);
   const [formErro, setFormErro] = React.useState("");
+  const [enviando, setEnviando] = React.useState(false);
+
+  window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   const [secaoAtiva, setSecaoAtiva] = React.useState("topo");
 
@@ -57,7 +64,7 @@ function App() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     setFormErro("");
 
@@ -71,9 +78,21 @@ function App() {
       return;
     }
 
-    // Aqui entraria a chamada para um backend/serviço de e-mail real.
-    setFormEnviado(true);
-    setForm({ nome: "", email: "", mensagem: "" });
+    setEnviando(true);
+    try {
+      await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: form.nome,
+        from_email: form.email,
+        reply_to: form.email,
+        message: form.mensagem,
+      });
+      setFormEnviado(true);
+      setForm({ nome: "", email: "", mensagem: "" });
+    } catch (err) {
+      setFormErro("Falha ao enviar a mensagem. Tente novamente em instantes.");
+    } finally {
+      setEnviando(false);
+    }
   }
 
   const campos = dados && [
@@ -110,7 +129,7 @@ function App() {
       </nav>
 
     <div className="page">
-      <div id="topo" className="eyebrow">sistema online</div>
+      <div id="topo" className="eyebrow">Sistema Online</div>
       <h1>SIL <span>/</span> Simple IP Lookup</h1>
       <p className="subtitle">
         Digite um endereço de IP para consultar localização, provedor e dados de rede em tempo real.
@@ -145,7 +164,7 @@ function App() {
         {carregando && (
           <div className="status-line">
             <span className="ping"></span>
-            resolvendo endereço…
+            Resolvendo Endereço…
           </div>
         )}
 
@@ -220,13 +239,16 @@ function App() {
 
               {formErro && <div className="erro">{formErro}</div>}
 
-              <button type="submit" className="submit-button">Enviar mensagem</button>
+              <button type="submit" className="submit-button" disabled={enviando}>
+                {enviando && <span className="spinner"></span>}
+                {enviando ? "Enviando" : "Enviar mensagem"}
+              </button>
             </form>
           )}
         </div>
       </section>
 
-      <footer>dados fornecidos por ip-api.com</footer>
+      <footer></footer>
     </div>
     </div>
   );
