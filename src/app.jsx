@@ -126,6 +126,23 @@ function App() {
           <span className="sidenav-dot"></span>
           Sobre &amp; contato
         </button>
+
+       <a
+          className="sidenav-item sidenav-github"
+          href="https://github.com/jonaskulmann"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            className="github-icon"
+            src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+            alt="GitHub"
+            width="14"
+            height="14"
+          />
+          GitHub
+        </a>
+
       </nav>
 
     <div className="page">
