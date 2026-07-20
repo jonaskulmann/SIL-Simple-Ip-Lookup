@@ -33,7 +33,7 @@ A aplicação também conta com uma seção de contato integrada, que envia mens
 | [React 18](https://react.dev/) | Biblioteca de interface (via CDN, sem build) |
 | [Babel Standalone](https://babeljs.io/) | Transpilação JSX no navegador |
 | [EmailJS](https://www.emailjs.com/) | Envio de e-mails do formulário de contato |
-| [ip-api.com](https://ip-api.com/) | API pública de geolocalização de IP |
+| [ipwho.is](https://ipwho.is) | API pública de geolocalização de IP |
 | CSS puro | Estilização, com fontes **Space Grotesk** e **JetBrains Mono** |
 
 ## 📁 Estrutura do projeto
