@@ -41,10 +41,10 @@ function App() {
     setErro("");
     setDados(null);
     try {
-      const resposta = await fetch(`http://ip-api.com/json/${ip}`);
+      const resposta = await fetch(`https://ipwho.is/${ip}`);
       const json = await resposta.json();
-      if (json.status === "fail") {
-        setErro(json.message === "invalid query" ? "Endereço de IP inválido." : "Não foi possível localizar esse IP.");
+      if (json.success === false) {
+        setErro(json.message === "invalid ip" ? "Endereço de IP inválido." : "Não foi possível localizar esse IP.");
       } else {
         setDados(json);
       }
@@ -96,18 +96,18 @@ function App() {
   }
 
   const campos = dados && [
-    { k: "IP", v: dados.query, accent: true },
+    { k: "IP", v: dados.ip, accent: true },
     { k: "País", v: dados.country },
-    { k: "Região", v: dados.regionName },
+    { k: "Região", v: dados.region },
     { k: "Cidade", v: dados.city },
-    { k: "CEP", v: dados.zip || "—" },
-    { k: "Lat / Lon", v: `${dados.lat}, ${dados.lon}` },
-    { k: "Timezone", v: dados.timezone },
-    { k: "ISP", v: dados.isp },
-    { k: "Organização", v: dados.org || "—" },
-    { k: "ASN", v: dados.as || "—" },
+    { k: "CEP", v: dados.postal || "—" },
+    { k: "Lat / Lon", v: `${dados.latitude}, ${dados.longitude}` },
+    { k: "Timezone", v: dados.timezone?.id || "—" },
+    { k: "ISP", v: dados.connection?.isp || "—" },
+    { k: "Organização", v: dados.connection?.org || "—" },
+    { k: "ASN", v: dados.connection?.asn || "—" },
   ];
-
+  
   return (
     <div className="layout">
       <nav className="sidenav">
@@ -126,6 +126,23 @@ function App() {
           <span className="sidenav-dot"></span>
           Sobre &amp; contato
         </button>
+
+       <a
+          className="sidenav-item sidenav-github"
+          href="https://github.com/jonaskulmann"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            className="github-icon"
+            src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+            alt="GitHub"
+            width="14"
+            height="14"
+          />
+          GitHub
+        </a>
+
       </nav>
 
     <div className="page">
