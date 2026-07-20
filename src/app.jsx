@@ -18,17 +18,36 @@ function App() {
   const [secaoAtiva, setSecaoAtiva] = React.useState("topo");
 
   React.useEffect(() => {
-    const secoes = ["topo", "sobre"].map((id) => document.getElementById(id)).filter(Boolean);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setSecaoAtiva(entry.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px" }
-    );
-    secoes.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    const ids = ["topo", "sobre"];
+
+    function atualizarSecaoAtiva() {
+      const scrollBottom = window.innerHeight + window.scrollY;
+      const documentoFim = document.documentElement.scrollHeight - 4;
+
+      if (scrollBottom >= documentoFim) {
+        setSecaoAtiva(ids[ids.length - 1]);
+        return;
+      }
+
+      let atual = ids[0];
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= window.innerHeight * 0.4) {
+          atual = id;
+        }
+      }
+      setSecaoAtiva(atual);
+    }
+
+    atualizarSecaoAtiva();
+    window.addEventListener("scroll", atualizarSecaoAtiva, { passive: true });
+    window.addEventListener("resize", atualizarSecaoAtiva);
+    return () => {
+      window.removeEventListener("scroll", atualizarSecaoAtiva);
+      window.removeEventListener("resize", atualizarSecaoAtiva);
+    };
   }, []);
 
   function irPara(id) {
