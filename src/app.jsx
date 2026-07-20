@@ -146,7 +146,8 @@ function App() {
       </nav>
 
     <div className="page">
-      <div id="topo" className="eyebrow">Sistema Online</div>
+      <section id="topo" className="topo">
+      <div className="eyebrow">Sistema Online</div>
       <h1>SIL <span>/</span> Simple IP Lookup</h1>
       <p className="subtitle">
         Digite um endereço de IP para consultar localização, provedor e dados de rede em tempo real.
@@ -196,6 +197,7 @@ function App() {
           </div>
         )}
       </div>
+      </section>
 
       <section id="sobre" className="sobre">
         <div className="eyebrow">sobre o projeto</div>
